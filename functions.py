@@ -6,8 +6,7 @@ amarillo =12
 azul=40
 verde = 38
 rojo = 13
-ojo1=28
-ojo2=35
+
 
 timbre = 7
 
@@ -31,7 +30,7 @@ def encender(color,tiempo,color2=33,color3=33,color4=33,color5=33):
     GPIO.output(color4,GPIO.HIGH)
     GPIO.output(color5,GPIO.HIGH)
     sleep(tiempo)
-    clear_output(wait=True)      
+   # clear_output(wait=True)      
  #   print("Apagamosel led ")      
     GPIO.output(color,GPIO.LOW)
     GPIO.output(color2,GPIO.LOW)
@@ -58,25 +57,32 @@ def sonar(color,tiempo):
 def tiempo(tiempo):
     sleep(tiempo)
     
-ojo1=26
-ojo2=35
-def VES(ojo1):
-    GPIO.setup(ojo1, GPIO.IN)
+ojo1=35
+ojo2=26
+def VES(ojo):
+    GPIO.setup(ojo, GPIO.IN)
     while True:
       try: 
-           i= GPIO.input(ojo1)
+           i= GPIO.input(ojo)
            if i==0:
                 print("NO TE VEO¡¡¡¡")
-                encender(rojo,1)
-                clear_output()
+                clear_output(wait=True)
+             #   encender(rojo,1)
+             #   clear_output()
 
            else:
                 print("TE VEO MACABEO¡¡¡¡")
-                encender(rojo,1)
+              #  encender(rojo,1)
+                sleep(5)
                 clear_output(wait=True)
+           sleep(0.2)     
       except KeyboardInterrupt:
+                #print("AHORA ESTOY APAGADO")
+            #    except KeyboardInterrupt:
+
                 print("AHORA ESTOY APAGADO")
                 break
+    
             
         
 
@@ -168,4 +174,86 @@ def repite(veces,fun1,arg1,fun2=None,arg2=None,fun3=None,arg3=None,fun4=None,arg
         print("****************************************")
         print("**********FIN DEL BUCLE "+str(a)+ "***********")
         print("****************************************")
+        
+        
+def SI(ojo, sens1,sens2=None,sens3=None,sens4=None):
+    GPIO.setup(ojo, GPIO.IN)
+    GPIO.setup(rojo, GPIO.OUT)
+    GPIO.setup(amarillo, GPIO.OUT)
+    GPIO.setup(azul, GPIO.OUT)
+    GPIO.setup(verde, GPIO.OUT)
+    GPIO.setup(timbre, GPIO.OUT)
+
+    while True:
+      try: 
+           i= GPIO.input(ojo)
+           if i==0:
+                print("NO TE VEO¡¡¡¡")
+                clear_output(wait=True)
+
+                    
+
+
+           else:
+                print("TE VEO MACABEO¡¡¡¡")
+                #encender(rojo,1)
+                encender(sens1,4) 
+                                
+                if sens2 ==None:
+                    pass
+                else:
+
+                    encender(sens2,2)
+                    
+                if sens3 ==None:
+                    pass
+                else:
+                    encender(sens3,1)
+                
+                if sens4 ==None:
+                    pass
+                else:
+                    encender(sens4,1)
+                sleep(1)
+                clear_output(wait=True)
+                sleep(5)
+           sleep(0.2)
+      except KeyboardInterrupt:
+                GPIO.output(timbre,GPIO.LOW)
+                GPIO.output(rojo,GPIO.LOW)
+                GPIO.output(amarillo,GPIO.LOW)
+                GPIO.output(azul,GPIO.LOW)
+                GPIO.output(verde,GPIO.LOW)
+                print("AHORA ESTOY APAGADO")
+                break
+                
+def SINO(ojo, sens1,sens2):
+    GPIO.setup(ojo, GPIO.IN)
+    GPIO.setup(rojo, GPIO.OUT)
+    GPIO.setup(amarillo, GPIO.OUT)
+    GPIO.setup(azul, GPIO.OUT)
+    GPIO.setup(verde, GPIO.OUT)
+    GPIO.setup(timbre, GPIO.OUT)
+    while True:
+      try: 
+           i= GPIO.input(ojo)
+           if i==0:
+                print("NO TE VEO¡¡¡¡")
+                encender(sens1,0.2) 
+                clear_output(wait=True)
+
+           else:
+                print("TE VEO MACABEO¡¡¡¡")
+                encender(sens2,6)
+                sleep(2)
+                clear_output(wait=True)
+           sleep(0.2)
+      except KeyboardInterrupt:
+                GPIO.output(timbre,GPIO.LOW)
+                GPIO.output(rojo,GPIO.LOW)
+                GPIO.output(amarillo,GPIO.LOW)
+                GPIO.output(azul,GPIO.LOW)
+                GPIO.output(verde,GPIO.LOW)
+                print("AHORA ESTOY APAGADO")
+                break
     
